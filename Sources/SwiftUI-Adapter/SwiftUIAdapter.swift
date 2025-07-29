@@ -4,25 +4,12 @@ import ImagePlayground
 import SwiftUI
 
 public struct SwiftUIAdapter<ContentView: View> {
-  public let content: ContentView
-  
-  public init(
-    _ content: ContentView
-  ) {
-    self.content = content
-  }
+  public let contentView: ContentView
 }
 
 // MARK: iOS 17 / macOS 13
 
 @MainActor extension SwiftUIAdapter {
-  public enum SwiftUIAdapterContentTransition {
-    case identity
-    case numericText
-    case opacity
-  }
-  
-  
   @ViewBuilder public func contentTransition(
     _ transition: SwiftUIAdapterContentTransition
   ) -> some View {
@@ -30,41 +17,37 @@ public struct SwiftUIAdapter<ContentView: View> {
     if #available(iOS 17.0, *) {
       switch transition {
       case .identity:
-        content.contentTransition(.identity)
+        contentView.contentTransition(.identity)
       case .opacity:
-        content.contentTransition(.opacity)
+        contentView.contentTransition(.opacity)
       case .numericText:
-        content.contentTransition(.numericText())
+        contentView.contentTransition(.numericText())
       }
     } else {
-      content
+      contentView
     }
 #elseif os(macOS)
     if #available(macOS 13.0, *) {
       switch transition {
       case .identity:
-        content.contentTransition(.identity)
+        contentView.contentTransition(.identity)
       case .numericText:
-        content.contentTransition(.numericText())
+        contentView.contentTransition(.numericText())
       case .opacity:
-        content.contentTransition(.opacity)
+        contentView.contentTransition(.opacity)
       }
     } else {
-      content
+      contentView
     }
 #else
-    content
+    contentView
 #endif
   }
 }
 
 // MARK: iOS 18 / macOS 15
 
-@MainActor extension SwiftUIAdapter {
-  public enum SwiftUIAdapterPresentationSizing {
-    case form
-  }
-  
+@MainActor extension SwiftUIAdapter {  
   @ViewBuilder public func presentationSizing(
     _ sizing: SwiftUIAdapterPresentationSizing
   ) -> some View {
@@ -72,22 +55,22 @@ public struct SwiftUIAdapter<ContentView: View> {
     if #available(iOS 18, *) {
       switch sizing {
       case .form:
-        content.presentationSizing(.form)
+        contentView.presentationSizing(.form)
       }
     } else {
-      content
+      contentView
     }
 #elseif os(macOS)
     if #available(macOS 15.0, *) {
       switch sizing {
       case .form:
-        content.presentationSizing(.form)
+        contentView.presentationSizing(.form)
       }
     } else {
-      content
+      contentView
     }
 #else
-    content
+    contentView
 #endif
   }
   
@@ -97,7 +80,7 @@ public struct SwiftUIAdapter<ContentView: View> {
   ) -> some View {
 #if os(iOS)
     if #available(iOS 18, *) {
-      content
+      contentView
         .navigationTransition(
           .zoom(
             sourceID: sourceID,
@@ -106,10 +89,10 @@ public struct SwiftUIAdapter<ContentView: View> {
         )
         .interactiveDismissDisabled()
     } else {
-      content
+      contentView
     }
 #else
-    content
+    contentView
 #endif
   }
   
@@ -119,24 +102,24 @@ public struct SwiftUIAdapter<ContentView: View> {
   ) -> some View {
 #if os(iOS)
     if #available(iOS 18, *) {
-      content.matchedTransitionSource(
+      contentView.matchedTransitionSource(
         id: id,
         in: namespace
       )
     } else {
-      content
+      contentView
     }
 #elseif os(macOS)
     if #available(macOS 15.0, *) {
-      content.matchedTransitionSource(
+      contentView.matchedTransitionSource(
         id: id,
         in: namespace
       )
     } else {
-      content
+      contentView
     }
 #else
-    content
+    contentView
 #endif
   }
   
@@ -149,7 +132,7 @@ public struct SwiftUIAdapter<ContentView: View> {
 #if os(iOS)
     if #available(iOS 18.1, *) {
       if ImagePlaygroundViewController.isAvailable {
-        content
+        contentView
           .imagePlaygroundSheet(
             isPresented: isPresented,
             sourceImage: sourceImage,
@@ -157,15 +140,15 @@ public struct SwiftUIAdapter<ContentView: View> {
             onCancellation: onCancellation
           )
       } else {
-        content
+        contentView
       }
     } else {
-      content
+      contentView
     }
 #elseif os(macOS)
     if #available(macOS 15.1, *) {
       if ImagePlaygroundViewController.isAvailable {
-        content
+        contentView
           .imagePlaygroundSheet(
             isPresented: isPresented,
             sourceImage: sourceImage,
@@ -173,13 +156,13 @@ public struct SwiftUIAdapter<ContentView: View> {
             onCancellation: onCancellation
           )
       } else {
-        content
+        contentView
       }
     } else {
-      content
+      contentView
     }
 #else
-    content
+    contentView
 #endif
   }
 }

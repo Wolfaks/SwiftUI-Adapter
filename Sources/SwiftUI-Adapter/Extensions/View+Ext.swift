@@ -4,6 +4,8 @@ import SwiftUI
 
 public extension View {
   var adapter: SwiftUIAdapter<Self> {
-    SwiftUIAdapter(self)
+    SwiftUIAdapter(
+      contentView: self
+    )
   }
 }
