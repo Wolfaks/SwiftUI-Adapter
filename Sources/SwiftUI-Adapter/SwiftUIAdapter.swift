@@ -13,65 +13,51 @@ public struct SwiftUIAdapter<ContentView: View> {
   @ViewBuilder public func contentTransition(
     _ transition: SwiftUIAdapterContentTransition
   ) -> some View {
-#if os(iOS)
-    if #available(iOS 17.0, *) {
-      switch transition {
-      case .identity:
-        contentView.contentTransition(.identity)
-      case .opacity:
-        contentView.contentTransition(.opacity)
-      case .numericText:
-        contentView.contentTransition(.numericText())
-      }
+    if #available(iOS 17.0, macOS 13.0, *) {
+      contentView
+        .contentTransition(transition.value)
     } else {
       contentView
     }
-#elseif os(macOS)
-    if #available(macOS 13.0, *) {
-      switch transition {
-      case .identity:
-        contentView.contentTransition(.identity)
-      case .numericText:
-        contentView.contentTransition(.numericText())
-      case .opacity:
-        contentView.contentTransition(.opacity)
-      }
-    } else {
-      contentView
-    }
-#else
-    contentView
-#endif
   }
 }
 
 // MARK: iOS 18 / macOS 15
 
-@MainActor extension SwiftUIAdapter {  
-  @ViewBuilder public func presentationSizing(
-    _ sizing: SwiftUIAdapterPresentationSizing
+@MainActor extension SwiftUIAdapter {
+  @ViewBuilder public func imagePlaygroundSheet(
+    isPresented: Binding<Bool>,
+    sourceImage: Image? = nil,
+    onCompletion: @escaping (URL) -> Void,
+    onCancellation: (() -> Void)? = nil
   ) -> some View {
-#if os(iOS)
-    if #available(iOS 18, *) {
-      switch sizing {
-      case .form:
-        contentView.presentationSizing(.form)
+    if #available(iOS 18.1, macOS 15.1, *) {
+      if ImagePlaygroundViewController.isAvailable {
+        contentView
+          .imagePlaygroundSheet(
+            isPresented: isPresented,
+            sourceImage: sourceImage,
+            onCompletion: onCompletion,
+            onCancellation: onCancellation
+          )
+      } else {
+        contentView
       }
+    }
+  }
+  
+  @ViewBuilder public func matchedTransitionSource(
+    id: some Hashable,
+    in namespace: Namespace.ID
+  ) -> some View {
+    if #available(iOS 18.0, macOS 15.0, *) {
+      contentView.matchedTransitionSource(
+        id: id,
+        in: namespace
+      )
     } else {
       contentView
     }
-#elseif os(macOS)
-    if #available(macOS 15.0, *) {
-      switch sizing {
-      case .form:
-        contentView.presentationSizing(.form)
-      }
-    } else {
-      contentView
-    }
-#else
-    contentView
-#endif
   }
   
   @ViewBuilder public func navigationTransitionZoom(
@@ -79,7 +65,7 @@ public struct SwiftUIAdapter<ContentView: View> {
     in namespace: Namespace.ID
   ) -> some View {
 #if os(iOS)
-    if #available(iOS 18, *) {
+    if #available(iOS 18.0, *) {
       contentView
         .navigationTransition(
           .zoom(
@@ -96,73 +82,14 @@ public struct SwiftUIAdapter<ContentView: View> {
 #endif
   }
   
-  @ViewBuilder public func matchedTransitionSource(
-    id: some Hashable,
-    in namespace: Namespace.ID
+  @ViewBuilder public func presentationSizing(
+    _ sizing: SwiftUIAdapterPresentationSizing
   ) -> some View {
-#if os(iOS)
-    if #available(iOS 18, *) {
-      contentView.matchedTransitionSource(
-        id: id,
-        in: namespace
-      )
+    if #available(iOS 18.0, macOS 15.0, *) {
+      contentView
+        .presentationSizing(sizing.value)
     } else {
       contentView
     }
-#elseif os(macOS)
-    if #available(macOS 15.0, *) {
-      contentView.matchedTransitionSource(
-        id: id,
-        in: namespace
-      )
-    } else {
-      contentView
-    }
-#else
-    contentView
-#endif
-  }
-  
-  @ViewBuilder public func imagePlaygroundSheet(
-    isPresented: Binding<Bool>,
-    sourceImage: Image? = nil,
-    onCompletion: @escaping (URL) -> Void,
-    onCancellation: (() -> Void)? = nil
-  ) -> some View {
-#if os(iOS)
-    if #available(iOS 18.1, *) {
-      if ImagePlaygroundViewController.isAvailable {
-        contentView
-          .imagePlaygroundSheet(
-            isPresented: isPresented,
-            sourceImage: sourceImage,
-            onCompletion: onCompletion,
-            onCancellation: onCancellation
-          )
-      } else {
-        contentView
-      }
-    } else {
-      contentView
-    }
-#elseif os(macOS)
-    if #available(macOS 15.1, *) {
-      if ImagePlaygroundViewController.isAvailable {
-        contentView
-          .imagePlaygroundSheet(
-            isPresented: isPresented,
-            sourceImage: sourceImage,
-            onCompletion: onCompletion,
-            onCancellation: onCancellation
-          )
-      } else {
-        contentView
-      }
-    } else {
-      contentView
-    }
-#else
-    contentView
-#endif
   }
 }
