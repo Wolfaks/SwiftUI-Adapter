@@ -10,6 +10,17 @@ public struct SwiftUIAdapter<ContentView: View> {
 // MARK: iOS 15 / macOS 12
 
 @MainActor extension SwiftUIAdapter {
+  @ViewBuilder public func animation(
+    _ animation: Animation?
+  ) -> some View {
+    if #available(iOS 15.0, macOS 12.0, *) {
+      contentView
+        .animation(animation)
+    } else {
+      contentView
+    }
+  }
+  
   @ViewBuilder func badge(
     _ count: Int
   ) -> some View {
@@ -101,6 +112,24 @@ public struct SwiftUIAdapter<ContentView: View> {
     if #available(iOS 15.0, macOS 12.0, *) {
       contentView
         .refreshable(action: action)
+    } else {
+      contentView
+    }
+  }
+  
+  @ViewBuilder public func safeAreaInset<V>(
+    edge: SwiftUIAdapterVerticalEdge,
+    alignment: HorizontalAlignment = .center,
+    spacing: CGFloat? = nil,
+    @ViewBuilder content: () -> V
+  ) -> some View where V : View {
+    if #available(iOS 15.0, macOS 12.0, *) {
+      contentView
+        .safeAreaInset(
+          edge: edge.value,
+          alignment: alignment,
+          content: content
+        )
     } else {
       contentView
     }
@@ -232,12 +261,71 @@ public struct SwiftUIAdapter<ContentView: View> {
     }
   }
   
+  @ViewBuilder public func contentTransition(
+    _ transition: SwiftUIAdapterContentTransition
+  ) -> some View {
+    if #available(iOS 16.0, macOS 13.0, *) {
+      contentView
+        .contentTransition(transition.value)
+    } else {
+      contentView
+    }
+  }
+  
   @ViewBuilder func fontWidth(
     _ width: SwiftUIAdapterFontWidth?
   ) -> some View {
     if #available(iOS 16.0, macOS 13.0, *) {
       contentView
         .fontWidth(width?.value)
+    } else {
+      contentView
+    }
+  }
+  
+  @ViewBuilder public func presentationBackgroundInteraction(
+    _ interaction: SwiftUIAdapterPresentationBackgroundInteraction
+  ) -> some View {
+    if #available(iOS 16.4, macOS 13.3, *) {
+      contentView
+        .presentationBackgroundInteraction(interaction.value)
+    } else {
+      contentView
+    }
+  }
+  
+  @ViewBuilder public func presentationCompactAdaptation(
+    _ adaptation: SwiftUIAdapterPresentationAdaptation
+  ) -> some View {
+    if #available(iOS 16.4, macOS 13.3, *) {
+      contentView
+        .presentationCompactAdaptation(adaptation.value)
+    } else {
+      contentView
+    }
+  }
+  
+  @ViewBuilder public func presentationCornerRadius(
+    _ cornerRadius: CGFloat?
+  ) -> some View {
+    if #available(iOS 16.4, macOS 13.3, *) {
+      contentView
+        .presentationCornerRadius(cornerRadius)
+    } else {
+      contentView
+    }
+  }
+  
+  @ViewBuilder func scrollBounceBehavior(
+    _ behavior: SwiftUIAdapterScrollBounceBehavior,
+    axes: Axis.Set = [.vertical]
+  ) -> some View {
+    if #available(iOS 16.4, macOS 13.3, *) {
+      contentView
+        .scrollBounceBehavior(
+          behavior.value,
+          axes: axes
+        )
     } else {
       contentView
     }
@@ -255,6 +343,32 @@ public struct SwiftUIAdapter<ContentView: View> {
   }
   
 #if os(iOS)
+  @ViewBuilder public func presentationBackground<S>(
+    _ style: S
+  ) -> some View where S: ShapeStyle {
+    if #available(iOS 16.4, *) {
+      contentView
+        .presentationBackground(style)
+    } else {
+      contentView
+    }
+  }
+  
+  @ViewBuilder public func presentationBackground<V>(
+    alignment: Alignment = .center,
+    @ViewBuilder content: () -> V
+  ) -> some View where V : View {
+    if #available(iOS 16.4, *) {
+      contentView
+        .presentationBackground(
+          alignment: alignment,
+          content: content
+        )
+    } else {
+      contentView
+    }
+  }
+  
   @ViewBuilder func scrollContentBackground(
     _ visibility: SwiftUIAdapterVisibility
   ) -> some View {
@@ -282,16 +396,17 @@ public struct SwiftUIAdapter<ContentView: View> {
 // MARK: iOS 17 / macOS 13
 
 @MainActor extension SwiftUIAdapter {
-  @ViewBuilder public func contentTransition(
-    _ transition: SwiftUIAdapterContentTransition
+#if os(iOS)
+  @ViewBuilder public func scrollTargetLayout(
   ) -> some View {
-    if #available(iOS 17.0, macOS 13.0, *) {
+    if #available(iOS 17.0, *) {
       contentView
-        .contentTransition(transition.value)
+        .scrollTargetLayout()
     } else {
       contentView
     }
   }
+#endif
   
 #if os(macOS)
   @ViewBuilder func listRowSeparator(
@@ -354,6 +469,32 @@ public struct SwiftUIAdapter<ContentView: View> {
     }
   }
   
+  @ViewBuilder public func presentationBackground<S>(
+    _ style: S
+  ) -> some View where S: ShapeStyle {
+    if #available(macOS 13.3, *) {
+      contentView
+        .presentationBackground(style)
+    } else {
+      contentView
+    }
+  }
+  
+  @ViewBuilder public func presentationBackground<V>(
+    alignment: Alignment = .center,
+    @ViewBuilder content: () -> V
+  ) -> some View where V : View {
+    if #available(macOS 13.3, *) {
+      contentView
+        .presentationBackground(
+          alignment: alignment,
+          content: content
+        )
+    } else {
+      contentView
+    }
+  }
+  
   @ViewBuilder func scrollContentBackground(
     _ visibility: SwiftUIAdapterVisibility
   ) -> some View {
@@ -365,12 +506,106 @@ public struct SwiftUIAdapter<ContentView: View> {
     }
   }
   
+  @ViewBuilder func scrollPosition(
+    id: Binding<(some Hashable)?>,
+    anchor: UnitPoint? = nil
+  ) -> some View {
+    if #available(iOS 17.0, macOS 14.0, *) {
+      contentView
+        .scrollPosition(
+          id: id,
+          anchor: anchor
+        )
+    } else {
+      contentView
+    }
+  }
+  
   @ViewBuilder func tint<S>(
     _ tint: S?
   ) -> some View where S: ShapeStyle {
     if #available(macOS 13.0, *) {
       contentView
         .tint(tint)
+    } else {
+      contentView
+    }
+  }
+#endif
+}
+
+// MARK: iOS 17 / macOS 14
+
+@MainActor extension SwiftUIAdapter {
+  @ViewBuilder public func allowedDynamicRange(
+    _ range: SwiftUIAdapterImageDynamicRange?
+  ) -> some View {
+    if #available(iOS 17.0, macOS 14.0, *) {
+      contentView
+        .allowedDynamicRange(range?.value)
+    } else {
+      contentView
+    }
+  }
+  
+  @ViewBuilder public func safeAreaPadding(
+    _ insets: EdgeInsets
+  ) -> some View {
+    if #available(iOS 17.0, macOS 14.0, *) {
+      contentView
+        .safeAreaPadding(insets)
+    } else {
+      contentView
+    }
+  }
+  
+  @ViewBuilder public func safeAreaPadding(
+    _ length: CGFloat
+  ) -> some View {
+    if #available(iOS 17.0, macOS 14.0, *) {
+      contentView
+        .safeAreaPadding(length)
+    } else {
+      contentView
+    }
+  }
+  
+  @ViewBuilder public func safeAreaPadding(
+    _ edges: Edge.Set = .all,
+    _ length: CGFloat? = nil
+  ) -> some View {
+    if #available(iOS 17.0, macOS 14.0, *) {
+      contentView
+        .safeAreaPadding(
+          edges,
+          length
+        )
+    } else {
+      contentView
+    }
+  }
+  
+  @ViewBuilder public func transaction(
+    value: some Equatable,
+    _ transform: @escaping (inout Transaction) -> Void
+  ) -> some View {
+    if #available(iOS 17.0, macOS 14.0, *) {
+      contentView
+        .transaction(
+          value: value,
+          transform
+        )
+    } else {
+      contentView
+    }
+  }
+  
+#if os(macOS)
+  @ViewBuilder public func scrollTargetLayout(
+  ) -> some View {
+    if #available(macOS 14.0, *) {
+      contentView
+        .scrollTargetLayout()
     } else {
       contentView
     }
