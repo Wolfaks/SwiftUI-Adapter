@@ -397,8 +397,7 @@ public struct SwiftUIAdapter<ContentView: View> {
 
 @MainActor extension SwiftUIAdapter {
 #if os(iOS)
-  @ViewBuilder public func scrollTargetLayout(
-  ) -> some View {
+  @ViewBuilder public func scrollTargetLayout() -> some View {
     if #available(iOS 17.0, *) {
       contentView
         .scrollTargetLayout()
@@ -548,6 +547,42 @@ public struct SwiftUIAdapter<ContentView: View> {
     }
   }
   
+  @ViewBuilder public func containerRelativeFrame(
+    _ axes: Axis.Set,
+    alignment: Alignment = .center
+  ) -> some View {
+    if #available(iOS 17.0, macOS 14.0, *) {
+      contentView
+        .containerRelativeFrame(
+          axes,
+          alignment: alignment
+        )
+    } else {
+      contentView
+    }
+  }
+  
+  @ViewBuilder public func containerRelativeFrame(
+    _ axes: Axis.Set,
+    count: Int,
+    span: Int = 1,
+    spacing: CGFloat,
+    alignment: Alignment = .center
+  ) -> some View {
+    if #available(iOS 17.0, macOS 14.0, *) {
+      contentView
+        .containerRelativeFrame(
+          axes,
+          count: count,
+          span: span,
+          spacing: spacing,
+          alignment: alignment
+        )
+    } else {
+      contentView
+    }
+  }
+  
   @ViewBuilder public func safeAreaPadding(
     _ insets: EdgeInsets
   ) -> some View {
@@ -601,8 +636,7 @@ public struct SwiftUIAdapter<ContentView: View> {
   }
   
 #if os(macOS)
-  @ViewBuilder public func scrollTargetLayout(
-  ) -> some View {
+  @ViewBuilder public func scrollTargetLayout() -> some View {
     if #available(macOS 14.0, *) {
       contentView
         .scrollTargetLayout()
@@ -616,6 +650,17 @@ public struct SwiftUIAdapter<ContentView: View> {
 // MARK: iOS 18 / macOS 15
 
 @MainActor extension SwiftUIAdapter {
+  @ViewBuilder public func allowsWindowActivationEvents(
+    _ value: Bool? = true
+  ) -> some View {
+    if #available(iOS 18.0, macOS 15.0, *) {
+      contentView
+        .allowsWindowActivationEvents(value)
+    } else {
+      contentView
+    }
+  }
+  
   @ViewBuilder public func imagePlaygroundSheet(
     isPresented: Binding<Bool>,
     sourceImage: Image? = nil,
@@ -642,10 +687,11 @@ public struct SwiftUIAdapter<ContentView: View> {
     in namespace: Namespace.ID
   ) -> some View {
     if #available(iOS 18.0, macOS 15.0, *) {
-      contentView.matchedTransitionSource(
-        id: id,
-        in: namespace
-      )
+      contentView
+        .matchedTransitionSource(
+          id: id,
+          in: namespace
+        )
     } else {
       contentView
     }
