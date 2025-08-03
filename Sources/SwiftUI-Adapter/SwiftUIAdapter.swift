@@ -682,6 +682,17 @@ public struct SwiftUIAdapter<ContentView: View> {
     }
   }
   
+  @ViewBuilder public func labelsVisibility(
+    _ visibility: SwiftUIAdapterVisibility
+  ) -> some View {
+    if #available(iOS 18.0, macOS 15.0, *) {
+      contentView
+        .labelsVisibility(visibility.value)
+    } else {
+      contentView
+    }
+  }
+  
   @ViewBuilder public func matchedTransitionSource(
     id: some Hashable,
     in namespace: Namespace.ID
@@ -697,26 +708,36 @@ public struct SwiftUIAdapter<ContentView: View> {
     }
   }
   
-  @ViewBuilder public func navigationTransitionZoom(
-    sourceID: some Hashable,
-    in namespace: Namespace.ID
-  ) -> some View {
-#if os(iOS)
-    if #available(iOS 18.0, *) {
+  @ViewBuilder public func onScrollTargetVisibilityChange<ID>(
+    idType: ID.Type,
+    threshold: Double = 0.5,
+    _ action: @escaping ([ID]) -> Void
+  ) -> some View where ID: Hashable {
+    if #available(iOS 18.0, macOS 15.0, *) {
       contentView
-        .navigationTransition(
-          .zoom(
-            sourceID: sourceID,
-            in: namespace
-          )
+        .onScrollTargetVisibilityChange(
+          idType: idType,
+          threshold: threshold,
+          action
         )
-        .interactiveDismissDisabled()
     } else {
       contentView
     }
-#else
-    contentView
-#endif
+  }
+  
+  @ViewBuilder public func onScrollVisibilityChange(
+    threshold: Double = 0.5,
+    _ action: @escaping (Bool) -> Void
+  ) -> some View {
+    if #available(iOS 18.0, macOS 15.0, *) {
+      contentView
+        .onScrollVisibilityChange(
+          threshold: threshold,
+          action
+        )
+    } else {
+      contentView
+    }
   }
   
   @ViewBuilder public func presentationSizing(
@@ -729,4 +750,35 @@ public struct SwiftUIAdapter<ContentView: View> {
       contentView
     }
   }
+  
+  @ViewBuilder public func sectionActions<Content>(
+    @ViewBuilder content: () -> Content
+  ) -> some View where Content: View {
+    if #available(iOS 18.0, macOS 15.0, *) {
+      contentView
+        .sectionActions(content: content)
+    } else {
+      contentView
+    }
+  }
+  
+#if os(iOS)
+  @ViewBuilder public func navigationTransitionZoom(
+    sourceID: some Hashable,
+    in namespace: Namespace.ID
+  ) -> some View {
+    if #available(iOS 18.0, *) {
+      contentView
+        .navigationTransition(
+          .zoom(
+            sourceID: sourceID,
+            in: namespace
+          )
+        )
+        .interactiveDismissDisabled()
+    } else {
+      contentView
+    }
+  }
+#endif
 }
