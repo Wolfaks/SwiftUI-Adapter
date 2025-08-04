@@ -4,19 +4,19 @@
 import PackageDescription
 
 let package = Package(
-  name: "SwiftUI-Adapter",
+  name: "SwiftUIAdapter",
   platforms: [
     .iOS(.v14),
     .macOS(.v11)
   ],
   products: [
     .library(
-      name: "SwiftUI-Adapter",
-      targets: ["SwiftUI-Adapter"]),
+      name: "SwiftUIAdapter",
+      targets: ["SwiftUIAdapter"]),
   ],
   targets: [
     .target(
-      name: "SwiftUI-Adapter"),
+      name: "SwiftUIAdapter"),
     
   ]
 )
