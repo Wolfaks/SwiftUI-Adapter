@@ -30,6 +30,7 @@ Plus, this will not affect the performance of your application in any way, since
 # Installation
 
 **Swift Package Manager**
+\
 The [Swift Package Manager]([https://skillbox.ru/media/](https://www.swift.org/documentation/package-manager/)) is a tool for automating the distribution of Swift code and is integrated into the swift compiler.
 \
 \
