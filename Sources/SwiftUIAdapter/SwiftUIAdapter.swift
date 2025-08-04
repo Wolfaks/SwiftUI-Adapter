@@ -505,21 +505,6 @@ public struct SwiftUIAdapter<ContentView: View> {
     }
   }
   
-  @ViewBuilder func scrollPosition(
-    id: Binding<(some Hashable)?>,
-    anchor: UnitPoint? = nil
-  ) -> some View {
-    if #available(iOS 17.0, macOS 14.0, *) {
-      contentView
-        .scrollPosition(
-          id: id,
-          anchor: anchor
-        )
-    } else {
-      contentView
-    }
-  }
-  
   @ViewBuilder func tint<S>(
     _ tint: S?
   ) -> some View where S: ShapeStyle {
@@ -614,6 +599,21 @@ public struct SwiftUIAdapter<ContentView: View> {
         .safeAreaPadding(
           edges,
           length
+        )
+    } else {
+      contentView
+    }
+  }
+  
+  @ViewBuilder func scrollPosition(
+    id: Binding<(some Hashable)?>,
+    anchor: UnitPoint? = nil
+  ) -> some View {
+    if #available(iOS 17.0, macOS 14.0, *) {
+      contentView
+        .scrollPosition(
+          id: id,
+          anchor: anchor
         )
     } else {
       contentView
