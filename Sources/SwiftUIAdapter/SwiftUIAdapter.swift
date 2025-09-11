@@ -782,3 +782,133 @@ public struct SwiftUIAdapter<ContentView: View> {
   }
 #endif
 }
+
+// MARK: iOS 26 / macOS 26
+
+@MainActor extension SwiftUIAdapter {
+  @ViewBuilder public func buttonSizing(
+    _ sizing: SwiftUIAdapterButtonSizing
+  ) -> some View {
+    if #available(iOS 26.0, macOS 26.0, *) {
+      contentView
+        .buttonSizing(sizing.value)
+    } else {
+      contentView
+    }
+  }
+  
+  @ViewBuilder public func containerCornerOffset(
+    _ edges: Edge.Set,
+    sizeToFit: Bool = false
+  ) -> some View {
+    if #available(iOS 26.0, macOS 26.0, *) {
+      contentView
+        .containerCornerOffset(
+          edges,
+          sizeToFit: sizeToFit
+        )
+    } else {
+      contentView
+    }
+  }
+  
+  @ViewBuilder public func glassEffect(
+    _ glass: SwiftUIAdapterGlass = .regular,
+    in shape: some Shape
+  ) -> some View {
+    if #available(iOS 26.0, macOS 26.0, *) {
+      contentView
+        .glassEffect(
+          glass.value,
+          in: shape
+        )
+    } else {
+      contentView
+    }
+  }
+  
+  @ViewBuilder public func glassEffectID(
+    _ id: (some Hashable & Sendable)?,
+    in namespace: Namespace.ID
+  ) -> some View {
+    if #available(iOS 26.0, macOS 26.0, *) {
+      contentView
+        .glassEffectID(
+          id,
+          in: namespace
+        )
+    } else {
+      contentView
+    }
+  }
+  
+  @ViewBuilder public func glassEffectTransition(
+    _ transition: SwiftUIAdapterGlassEffectTransition
+  ) -> some View {
+    if #available(iOS 26.0, macOS 26.0, *) {
+      contentView
+        .glassEffectTransition(transition.value)
+    } else {
+      contentView
+    }
+  }
+  
+  @ViewBuilder public func glassEffectUnion(
+    id: (some Hashable & Sendable)?,
+    namespace: Namespace.ID
+  ) -> some View {
+    if #available(iOS 26.0, macOS 26.0, *) {
+      contentView
+        .glassEffectUnion(
+          id: id,
+          namespace: namespace
+        )
+    } else {
+      contentView
+    }
+  }
+  
+  @ViewBuilder public func onOpenURL(
+    prefersInApp: Bool
+  ) -> some View {
+    if #available(iOS 26.0, macOS 26.0, *) {
+      contentView
+        .onOpenURL(prefersInApp: prefersInApp)
+    } else {
+      contentView
+    }
+  }
+  
+  @ViewBuilder public func sliderThumbVisibility(
+    _ visibility: SwiftUIAdapterVisibility
+  ) -> some View {
+    if #available(iOS 26.0, macOS 26.0, *) {
+      contentView
+        .sliderThumbVisibility(visibility.value)
+    } else {
+      contentView
+    }
+  }
+  
+  @ViewBuilder public func symbolColorRenderingMode(
+    _ mode: SwiftUIAdapterSymbolColorRenderingMode?
+  ) -> some View {
+    if #available(iOS 26.0, macOS 26.0, *) {
+      contentView
+        .symbolColorRenderingMode(mode?.value)
+    } else {
+      contentView
+    }
+  }
+  
+  @ViewBuilder public func symbolVariableValueMode(
+    _ mode: SwiftUIAdapterSymbolVariableValueMode?
+  ) -> some View {
+    if #available(iOS 26.0, macOS 26.0, *) {
+      contentView
+        .symbolVariableValueMode(mode?.value)
+    } else {
+      contentView
+    }
+  }
+}
