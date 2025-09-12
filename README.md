@@ -77,6 +77,25 @@ Plus, this will not affect the performance of your application in any way, since
 |.sectionActions<Content>(content:)|Adds custom actions to a section.|18|
 |.navigationTransitionZoom(sourceID:in:)|Sets the navigation transition style for this view.|18|
 |.imagePlaygroundSheet(<br>  isPresented:sourceImage:onCompletion:onCancellation:<br>)|Presents the system sheet to create images from the specified input.|18.1|
+|.backgroundExtensionEffect()|This modifier will clip the view to prevent copies from overlapping with each other.|26|
+|.buttonSizing(_:)|The preferred sizing behavior of buttons in the view hierarchy.|26|
+|.containerCornerOffset(_:)|Adjusts the view's layout to avoid the container view's corner insets for the specified edges.|26|
+|.glassButtonStyle()|Applies a glass effect to this button.|26|
+|.glassEffect(_:)|Applies a glass effect to this view.|26|
+|.glassEffectContainer(spacing:)|A view that combines multiple glass shapes into a single shape that can morph individual shapes into one another.|26|
+|.glassEffectID(_:in:)|Associates an identity value to glass effects defined within this view.|26|
+|.glassEffectTransition(_:)|Associates a glass effect transition with any glass effects defined within this view.|26|
+|.glassEffectUnion(id:namespace:)|Associates any glass effects defined within this view to a union with the provided id.|26|
+|.glassProminentButtonStyle()|Applies a glass prominent style to this button.|26|
+|.listSectionMargins(_:_:)|Set the section margins for the specific edges.|26|
+|.onOpenURL(prefersInApp:)|Sets an 'OpenURLAction' that prefers opening URL with an in-app browser.|26|
+|.safeAreaBar(edge:alignment:spacing:)|Shows the specified content as a custom bar above or below the modified view.|26|
+|.scrollEdgeEffectHidden(_:for:)|Hides any scroll edge effects for scroll views within this hierarchy.|26|
+|.scrollEdgeEffectStyle(_:for:)|Configures the scroll edge effect style for scroll views within this hierarchy.|26|
+|.sliderThumbVisibility(_:)|Sets the thumb visibility for Sliders within this view.|26|
+|.symbolColorRenderingMode(_:)|Sets the color rendering mode for symbol images.|26|
+|.symbolVariableValueMode(_:)|Sets the variable value mode mode for symbol images within this view.|26|
+|.tabBarMinimizeBehavior(_:)|Sets the behavior for tab bar minimization.|26|
 
 # List of available modifiers for macOS
 
@@ -128,6 +147,24 @@ Plus, this will not affect the performance of your application in any way, since
 |.presentationSizing(_:)|Sets the sizing of the containing presentation.|15|
 |.sectionActions<Content>(content:)|Adds custom actions to a section.|15|
 |.imagePlaygroundSheet(<br>  isPresented:sourceImage:onCompletion:onCancellation:<br>)|Presents the system sheet to create images from the specified input.|15.1|
+|.backgroundExtensionEffect()|This modifier will clip the view to prevent copies from overlapping with each other.|26|
+|.buttonSizing(_:)|The preferred sizing behavior of buttons in the view hierarchy.|26|
+|.containerCornerOffset(_:)|Adjusts the view's layout to avoid the container view's corner insets for the specified edges.|26|
+|.glassButtonStyle()|Applies a glass effect to this button.|26|
+|.glassEffect(_:)|Applies a glass effect to this view.|26|
+|.glassEffectContainer(spacing:)|A view that combines multiple glass shapes into a single shape that can morph individual shapes into one another.|26|
+|.glassEffectID(_:in:)|Associates an identity value to glass effects defined within this view.|26|
+|.glassEffectTransition(_:)|Associates a glass effect transition with any glass effects defined within this view.|26|
+|.glassEffectUnion(id:namespace:)|Associates any glass effects defined within this view to a union with the provided id.|26|
+|.glassProminentButtonStyle()|Applies a glass prominent style to this button.|26|
+|.onOpenURL(prefersInApp:)|Sets an 'OpenURLAction' that prefers opening URL with an in-app browser.|26|
+|.safeAreaBar(edge:alignment:spacing:)|Shows the specified content as a custom bar above or below the modified view.|26|
+|.scrollEdgeEffectHidden(_:for:)|Hides any scroll edge effects for scroll views within this hierarchy.|26|
+|.scrollEdgeEffectStyle(_:for:)|Configures the scroll edge effect style for scroll views within this hierarchy.|26|
+|.sliderThumbVisibility(_:)|Sets the thumb visibility for Sliders within this view.|26|
+|.symbolColorRenderingMode(_:)|Sets the color rendering mode for symbol images.|26|
+|.symbolVariableValueMode(_:)|Sets the variable value mode mode for symbol images within this view.|26|
+|.tabBarMinimizeBehavior(_:)|Sets the behavior for tab bar minimization.|26|
 
 # Installation
 
