@@ -786,6 +786,15 @@ public struct SwiftUIAdapter<ContentView: View> {
 // MARK: iOS 26 / macOS 26
 
 @MainActor extension SwiftUIAdapter {
+  @ViewBuilder func backgroundExtensionEffect() -> some View {
+    if #available(iOS 26.0, macOS 26.0, *) {
+      contentView
+        .backgroundExtensionEffect()
+    } else {
+      contentView
+    }
+  }
+  
   @ViewBuilder public func buttonSizing(
     _ sizing: SwiftUIAdapterButtonSizing
   ) -> some View {
@@ -812,6 +821,18 @@ public struct SwiftUIAdapter<ContentView: View> {
     }
   }
   
+  @ViewBuilder func glassButtonStyle(
+    fallbackStyle: some PrimitiveButtonStyle = DefaultButtonStyle()
+  ) -> some View {
+    if #available(iOS 26.0, macOS 26.0, *) {
+      contentView
+        .buttonStyle(.glass)
+    } else {
+      contentView
+        .buttonStyle(fallbackStyle)
+    }
+  }
+  
   @ViewBuilder public func glassEffect(
     _ glass: SwiftUIAdapterGlass = .regular,
     in shape: some Shape
@@ -822,6 +843,37 @@ public struct SwiftUIAdapter<ContentView: View> {
           glass.value,
           in: shape
         )
+    } else {
+      contentView
+    }
+  }
+  
+  @ViewBuilder public func glassEffect(
+    _ glass: SwiftUIAdapterGlass = .regular,
+    in shape: some Shape,
+    fallbackBackground: some ShapeStyle
+  ) -> some View {
+    if #available(iOS 26.0, macOS 26.0, *) {
+      contentView
+        .glassEffect(
+          glass.value,
+          in: shape
+        )
+    } else if #available(iOS 15.0, macOS 12.0, *) {
+      contentView
+        .background(fallbackBackground, in: shape)
+    } else {
+      contentView
+    }
+  }
+  
+  @ViewBuilder func glassEffectContainer(
+    spacing: CGFloat? = nil
+  ) -> some View {
+    if #available(iOS 26.0, macOS 26.0, *) {
+      GlassEffectContainer(spacing: spacing) {
+        contentView
+      }
     } else {
       contentView
     }
@@ -868,12 +920,97 @@ public struct SwiftUIAdapter<ContentView: View> {
     }
   }
   
+  @ViewBuilder func glassProminentButtonStyle() -> some View {
+    if #available(iOS 26.0, macOS 26.0, *) {
+      contentView
+        .buttonStyle(.glassProminent)
+    } else if #available(iOS 15.0, macOS 12.0, *) {
+      contentView
+        .buttonStyle(.borderedProminent)
+    } else {
+      contentView
+    }
+  }
+  
+  @ViewBuilder func listSectionMargins(
+    _ edges: Edge.Set = .all,
+    _ length: CGFloat?
+  ) -> some View {
+    if #available(iOS 26.0, macOS 11, *) {
+#if os(iOS)
+      contentView
+        .listSectionMargins(edges, length)
+#else
+      contentView
+#endif
+    } else {
+      contentView
+    }
+  }
+  
   @ViewBuilder public func onOpenURL(
     prefersInApp: Bool
   ) -> some View {
     if #available(iOS 26.0, macOS 26.0, *) {
       contentView
         .onOpenURL(prefersInApp: prefersInApp)
+    } else {
+      contentView
+    }
+  }
+  
+  @ViewBuilder func safeAreaBar<V: View>(
+    edge: SwiftUIAdapterVerticalEdge,
+    alignment: HorizontalAlignment = .center,
+    spacing: CGFloat? = nil,
+    @ViewBuilder content: () -> V
+  ) -> some View {
+    if #available(iOS 26.0, macOS 26, *) {
+      contentView
+        .safeAreaBar(
+          edge: edge.value,
+          alignment: alignment,
+          spacing: spacing,
+          content: content
+        )
+    } else if #available(iOS 15.0, macOS 12.0, *) {
+      contentView
+        .safeAreaInset(
+          edge: edge.value,
+          alignment: alignment,
+          spacing: spacing,
+          content: content
+        )
+    } else {
+      contentView
+    }
+  }
+  
+  @ViewBuilder func scrollEdgeEffectHidden(
+    _ hidden: Bool = true,
+    for edges: Edge.Set = .all
+  ) -> some View {
+    if #available(iOS 26.0, macOS 26.0, *) {
+      contentView
+        .scrollEdgeEffectHidden(
+          hidden,
+          for: edges
+        )
+    } else {
+      contentView
+    }
+  }
+  
+  @ViewBuilder func scrollEdgeEffectStyle(
+    _ style: SwiftUIAdapterScrollEdgeEffectStyle?,
+    for edges: Edge.Set
+  ) -> some View {
+    if #available(iOS 26.0, macOS 26.0, *) {
+      contentView
+        .scrollEdgeEffectStyle(
+          style?.value,
+          for: edges
+        )
     } else {
       contentView
     }
@@ -907,6 +1044,17 @@ public struct SwiftUIAdapter<ContentView: View> {
     if #available(iOS 26.0, macOS 26.0, *) {
       contentView
         .symbolVariableValueMode(mode?.value)
+    } else {
+      contentView
+    }
+  }
+  
+  @ViewBuilder func tabBarMinimizeBehavior(
+    _ behavior: SwiftUIAdapterTabBarMinimizeBehavior
+  ) -> some View {
+    if #available(iOS 26.0, macOS 26.0, *) {
+      contentView
+        .tabBarMinimizeBehavior(behavior.value)
     } else {
       contentView
     }
