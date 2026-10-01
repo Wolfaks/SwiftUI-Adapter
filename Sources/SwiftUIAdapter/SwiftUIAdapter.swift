@@ -21,7 +21,7 @@ public struct SwiftUIAdapter<ContentView: View> {
     }
   }
   
-  @ViewBuilder func badge(
+  @ViewBuilder public func badge(
     _ count: Int
   ) -> some View {
     if #available(iOS 15.0, macOS 12.0, *) {
@@ -32,7 +32,7 @@ public struct SwiftUIAdapter<ContentView: View> {
     }
   }
   
-  @ViewBuilder func badge(
+  @ViewBuilder public func badge(
     _ label: Text?
   ) -> some View {
     if #available(iOS 15.0, macOS 12.0, *) {
@@ -43,7 +43,7 @@ public struct SwiftUIAdapter<ContentView: View> {
     }
   }
   
-  @ViewBuilder func badge(
+  @ViewBuilder public func badge(
     _ key: LocalizedStringKey?
   ) -> some View {
     if #available(iOS 15.0, macOS 12.0, *) {
@@ -54,7 +54,7 @@ public struct SwiftUIAdapter<ContentView: View> {
     }
   }
   
-  @ViewBuilder func badge<S>(
+  @ViewBuilder public func badge<S>(
     _ label: S?
   ) -> some View where S: StringProtocol {
     if #available(iOS 15.0, macOS 12.0, *) {
@@ -65,7 +65,7 @@ public struct SwiftUIAdapter<ContentView: View> {
     }
   }
   
-  @ViewBuilder func interactiveDismissDisabled(
+  @ViewBuilder public func interactiveDismissDisabled(
     _ isDisabled: Bool = true
   ) -> some View {
     if #available(iOS 15.0, macOS 12.0, *) {
@@ -76,7 +76,7 @@ public struct SwiftUIAdapter<ContentView: View> {
     }
   }
   
-  @ViewBuilder func onChange<V>(
+  @ViewBuilder public func onChange<V>(
     of: V,
     perform: @escaping (_ newValue: V) -> Void
   ) -> some View where V: Equatable {
@@ -91,7 +91,7 @@ public struct SwiftUIAdapter<ContentView: View> {
     }
   }
   
-  @ViewBuilder func onSubmit(
+  @ViewBuilder public func onSubmit(
     of: SwiftUIAdapterSubmitTriggers = .text,
     _ action: @escaping (() -> Void)
   ) -> some View {
@@ -106,7 +106,7 @@ public struct SwiftUIAdapter<ContentView: View> {
     }
   }
   
-  @ViewBuilder func refreshable(
+  @ViewBuilder public func refreshable(
     action: @escaping @Sendable () async -> Void
   ) -> some View {
     if #available(iOS 15.0, macOS 12.0, *) {
@@ -135,7 +135,7 @@ public struct SwiftUIAdapter<ContentView: View> {
     }
   }
   
-  @ViewBuilder func searchable(
+  @ViewBuilder public func searchable(
     text: Binding<String>,
     placement: SwiftUIAdapterSearchFieldPlacement = .automatic,
     prompt: LocalizedStringKey
@@ -152,7 +152,7 @@ public struct SwiftUIAdapter<ContentView: View> {
     }
   }
   
-  @ViewBuilder func swipeActions<T>(
+  @ViewBuilder public func swipeActions<T>(
     edge: SwiftUIAdapterHorizontalEdge = .trailing,
     allowsFullSwipe: Bool = true,
     @ViewBuilder content: () -> T
@@ -169,7 +169,7 @@ public struct SwiftUIAdapter<ContentView: View> {
     }
   }
   
-  @ViewBuilder func task(
+  @ViewBuilder public func task(
     priority: TaskPriority = .userInitiated,
     _ action: @escaping @Sendable () async -> Void
   ) -> some View {
@@ -185,7 +185,7 @@ public struct SwiftUIAdapter<ContentView: View> {
   }
   
 #if os(iOS)
-  @ViewBuilder func listRowSeparator(
+  @ViewBuilder public func listRowSeparator(
     _ visibility: SwiftUIAdapterVisibility,
     edges: SwiftUIAdapterVerticalEdgeSet = .all
   ) -> some View {
@@ -200,7 +200,7 @@ public struct SwiftUIAdapter<ContentView: View> {
     }
   }
   
-  @ViewBuilder func listRowSeparatorTint(
+  @ViewBuilder public func listRowSeparatorTint(
     _ color: Color?,
     edges: SwiftUIAdapterVerticalEdgeSet = .all
   ) -> some View {
@@ -215,7 +215,7 @@ public struct SwiftUIAdapter<ContentView: View> {
     }
   }
   
-  @ViewBuilder func listSectionSeparator(
+  @ViewBuilder public func listSectionSeparator(
     _ visibility: SwiftUIAdapterVisibility,
     edges: SwiftUIAdapterVerticalEdgeSet = .all
   ) -> some View {
@@ -230,7 +230,7 @@ public struct SwiftUIAdapter<ContentView: View> {
     }
   }
   
-  @ViewBuilder func listSectionSeparatorTint(
+  @ViewBuilder public func listSectionSeparatorTint(
     _ color: Color?,
     edges: SwiftUIAdapterVerticalEdgeSet = .all
   ) -> some View {
@@ -250,7 +250,7 @@ public struct SwiftUIAdapter<ContentView: View> {
 // MARK: iOS 16 / macOS 13
 
 @MainActor extension SwiftUIAdapter {
-  @ViewBuilder func backgroundStyle<S>(
+  @ViewBuilder public func backgroundStyle<S>(
     _ style: S
   ) -> some View where S: ShapeStyle {
     if #available(iOS 16.0, macOS 13.0, *) {
@@ -272,7 +272,7 @@ public struct SwiftUIAdapter<ContentView: View> {
     }
   }
   
-  @ViewBuilder func fontWidth(
+  @ViewBuilder public func fontWidth(
     _ width: SwiftUIAdapterFontWidth?
   ) -> some View {
     if #available(iOS 16.0, macOS 13.0, *) {
@@ -316,7 +316,7 @@ public struct SwiftUIAdapter<ContentView: View> {
     }
   }
   
-  @ViewBuilder func scrollBounceBehavior(
+  @ViewBuilder public func scrollBounceBehavior(
     _ behavior: SwiftUIAdapterScrollBounceBehavior,
     axes: Axis.Set = [.vertical]
   ) -> some View {
@@ -331,7 +331,7 @@ public struct SwiftUIAdapter<ContentView: View> {
     }
   }
   
-  @ViewBuilder func toolbarRole(
+  @ViewBuilder public func toolbarRole(
     _ role: SwiftUIAdapterToolbarRole
   ) -> some View {
     if #available(iOS 16.0, macOS 13.0, *) {
@@ -369,7 +369,7 @@ public struct SwiftUIAdapter<ContentView: View> {
     }
   }
   
-  @ViewBuilder func scrollContentBackground(
+  @ViewBuilder public func scrollContentBackground(
     _ visibility: SwiftUIAdapterVisibility
   ) -> some View {
     if #available(iOS 16.0, *) {
@@ -380,7 +380,7 @@ public struct SwiftUIAdapter<ContentView: View> {
     }
   }
   
-  @ViewBuilder func tint<S>(
+  @ViewBuilder public func tint<S>(
     _ tint: S?
   ) -> some View where S: ShapeStyle {
     if #available(iOS 16.0, *) {
@@ -408,7 +408,7 @@ public struct SwiftUIAdapter<ContentView: View> {
 #endif
   
 #if os(macOS)
-  @ViewBuilder func listRowSeparator(
+  @ViewBuilder public func listRowSeparator(
     _ visibility: SwiftUIAdapterVisibility,
     edges: SwiftUIAdapterVerticalEdgeSet = .all
   ) -> some View {
@@ -423,7 +423,7 @@ public struct SwiftUIAdapter<ContentView: View> {
     }
   }
   
-  @ViewBuilder func listRowSeparatorTint(
+  @ViewBuilder public func listRowSeparatorTint(
     _ color: Color?,
     edges: SwiftUIAdapterVerticalEdgeSet = .all
   ) -> some View {
@@ -438,7 +438,7 @@ public struct SwiftUIAdapter<ContentView: View> {
     }
   }
   
-  @ViewBuilder func listSectionSeparator(
+  @ViewBuilder public func listSectionSeparator(
     _ visibility: SwiftUIAdapterVisibility,
     edges: SwiftUIAdapterVerticalEdgeSet = .all
   ) -> some View {
@@ -453,7 +453,7 @@ public struct SwiftUIAdapter<ContentView: View> {
     }
   }
   
-  @ViewBuilder func listSectionSeparatorTint(
+  @ViewBuilder public func listSectionSeparatorTint(
     _ color: Color?,
     edges: SwiftUIAdapterVerticalEdgeSet = .all
   ) -> some View {
@@ -494,7 +494,7 @@ public struct SwiftUIAdapter<ContentView: View> {
     }
   }
   
-  @ViewBuilder func scrollContentBackground(
+  @ViewBuilder public func scrollContentBackground(
     _ visibility: SwiftUIAdapterVisibility
   ) -> some View {
     if #available(macOS 13.0, *) {
@@ -505,7 +505,7 @@ public struct SwiftUIAdapter<ContentView: View> {
     }
   }
   
-  @ViewBuilder func tint<S>(
+  @ViewBuilder public func tint<S>(
     _ tint: S?
   ) -> some View where S: ShapeStyle {
     if #available(macOS 13.0, *) {
@@ -605,7 +605,7 @@ public struct SwiftUIAdapter<ContentView: View> {
     }
   }
   
-  @ViewBuilder func scrollPosition(
+  @ViewBuilder public func scrollPosition(
     id: Binding<(some Hashable)?>,
     anchor: UnitPoint? = nil
   ) -> some View {
@@ -786,7 +786,7 @@ public struct SwiftUIAdapter<ContentView: View> {
 // MARK: iOS 26 / macOS 26
 
 @MainActor extension SwiftUIAdapter {
-  @ViewBuilder func backgroundExtensionEffect() -> some View {
+  @ViewBuilder public func backgroundExtensionEffect() -> some View {
     if #available(iOS 26.0, macOS 26.0, *) {
       contentView
         .backgroundExtensionEffect()
@@ -821,7 +821,7 @@ public struct SwiftUIAdapter<ContentView: View> {
     }
   }
   
-  @ViewBuilder func glassButtonStyle(
+  @ViewBuilder public func glassButtonStyle(
     fallbackStyle: some PrimitiveButtonStyle = DefaultButtonStyle()
   ) -> some View {
     if #available(iOS 26.0, macOS 26.0, *) {
@@ -867,7 +867,7 @@ public struct SwiftUIAdapter<ContentView: View> {
     }
   }
   
-  @ViewBuilder func glassEffectContainer(
+  @ViewBuilder public func glassEffectContainer(
     spacing: CGFloat? = nil
   ) -> some View {
     if #available(iOS 26.0, macOS 26.0, *) {
@@ -920,7 +920,7 @@ public struct SwiftUIAdapter<ContentView: View> {
     }
   }
   
-  @ViewBuilder func glassProminentButtonStyle() -> some View {
+  @ViewBuilder public func glassProminentButtonStyle() -> some View {
     if #available(iOS 26.0, macOS 26.0, *) {
       contentView
         .buttonStyle(.glassProminent)
@@ -932,7 +932,7 @@ public struct SwiftUIAdapter<ContentView: View> {
     }
   }
   
-  @ViewBuilder func listSectionMargins(
+  @ViewBuilder public func listSectionMargins(
     _ edges: Edge.Set = .all,
     _ length: CGFloat?
   ) -> some View {
@@ -959,7 +959,7 @@ public struct SwiftUIAdapter<ContentView: View> {
     }
   }
   
-  @ViewBuilder func safeAreaBar<V: View>(
+  @ViewBuilder public func safeAreaBar<V: View>(
     edge: SwiftUIAdapterVerticalEdge,
     alignment: HorizontalAlignment = .center,
     spacing: CGFloat? = nil,
@@ -986,7 +986,7 @@ public struct SwiftUIAdapter<ContentView: View> {
     }
   }
   
-  @ViewBuilder func scrollEdgeEffectHidden(
+  @ViewBuilder public func scrollEdgeEffectHidden(
     _ hidden: Bool = true,
     for edges: Edge.Set = .all
   ) -> some View {
@@ -1001,7 +1001,7 @@ public struct SwiftUIAdapter<ContentView: View> {
     }
   }
   
-  @ViewBuilder func scrollEdgeEffectStyle(
+  @ViewBuilder public func scrollEdgeEffectStyle(
     _ style: SwiftUIAdapterScrollEdgeEffectStyle?,
     for edges: Edge.Set
   ) -> some View {
@@ -1049,7 +1049,7 @@ public struct SwiftUIAdapter<ContentView: View> {
     }
   }
   
-  @ViewBuilder func tabBarMinimizeBehavior(
+  @ViewBuilder public func tabBarMinimizeBehavior(
     _ behavior: SwiftUIAdapterTabBarMinimizeBehavior
   ) -> some View {
     if #available(iOS 26.0, macOS 26.0, *) {
