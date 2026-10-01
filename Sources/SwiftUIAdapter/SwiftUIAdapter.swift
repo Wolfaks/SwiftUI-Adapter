@@ -1060,3 +1060,187 @@ public struct SwiftUIAdapter<ContentView: View> {
     }
   }
 }
+
+// MARK: iOS 27 / macOS 26
+
+@MainActor extension SwiftUIAdapter {
+  @ViewBuilder public func dragContainerSelection<ItemID>(
+    _ selection: @autoclosure @escaping () -> [ItemID],
+    containerNamespace: Namespace.ID? = nil
+  ) -> some View where ItemID : Hashable, ItemID : Sendable {
+    if #available(iOS 27.0, macOS 26.0, *) {
+      contentView
+        .dragContainerSelection(selection(), containerNamespace: containerNamespace)
+    } else {
+      contentView
+    }
+  }
+  
+  @ViewBuilder public func draggable<ItemID>(
+    containerItemID: ItemID,
+    containerNamespace: Namespace.ID? = nil
+  ) -> some View where ItemID : Hashable, ItemID : Sendable {
+    if #available(iOS 27.0, macOS 26.0, *) {
+      contentView
+        .draggable(containerItemID: containerItemID, containerNamespace: containerNamespace)
+    } else {
+      contentView
+    }
+  }
+}
+
+// MARK: iOS 27 / macOS 27
+
+@MainActor extension SwiftUIAdapter {
+  @ViewBuilder public func asyncImageURLSession(
+    _ session: URLSession
+  ) -> some View {
+    if #available(iOS 27.0, macOS 27.0, *) {
+      contentView
+        .asyncImageURLSession(session)
+    } else {
+      contentView
+    }
+  }
+  
+  @ViewBuilder public func defaultTabBarPlacement(
+    _ placement: SwiftUIAdapterTabBarPlacement
+  ) -> some View {
+    if #available(iOS 27.0, macOS 27.0, *) {
+      contentView
+        .defaultTabBarPlacement(placement.value)
+    } else {
+      contentView
+    }
+  }
+  
+  @ViewBuilder public func ignoresSafeArea(
+    _ regions: SwiftUIAdapterSafeAreaRegions,
+    edges: Edge.Set = .all,
+    alignment: Alignment? = nil
+  ) -> some View {
+    if #available(iOS 27.0, macOS 27.0, *) {
+      contentView
+        .ignoresSafeArea(regions.value, edges: edges, alignment: alignment)
+    } else {
+      contentView
+    }
+  }
+  
+  @ViewBuilder public func onLongPressGesture(
+    minimumDuration: Double = 0.5,
+    maximumDistance: CGFloat = 10,
+    inputKinds: SwiftUIAdapterGestureInputKinds? = nil,
+    perform action: @escaping () -> Void,
+    onPressingChanged: ((Bool) -> Void)? = nil
+  ) -> some View {
+    if #available(iOS 27.0, macOS 27.0, *) {
+      contentView
+        .onLongPressGesture(
+          minimumDuration: minimumDuration,
+          maximumDistance: maximumDistance,
+          inputKinds: inputKinds?.value ?? .all,
+          perform: action,
+          onPressingChanged: onPressingChanged
+        )
+    } else {
+      contentView
+    }
+  }
+  
+  @ViewBuilder public func presentationPlacement(
+    _ placement: SwiftUIAdapterPresentationPlacement
+  ) -> some View {
+    if #available(iOS 27.0, macOS 27.0, *) {
+      contentView
+        .presentationPlacement(placement.value)
+    } else {
+      contentView
+    }
+  }
+  
+  @ViewBuilder public func recordingEditor(
+    _ isPresented: Binding<URL?>
+  ) -> some View {
+    if #available(iOS 27.0, macOS 27.0, *) {
+      contentView
+        .recordingEditor(isPresented)
+    } else {
+      contentView
+    }
+  }
+  
+  @ViewBuilder public func swipeActions<V>(
+    edge: SwiftUIAdapterHorizontalEdge,
+    allowsFullSwipe: Bool = true,
+    @ViewBuilder content: () -> V,
+    onPresentationChanged: @escaping (Bool) -> Void
+  ) -> some View where V : View {
+    if #available(iOS 27.0, macOS 27.0, *) {
+      contentView
+        .swipeActions(
+          edge: edge.value,
+          allowsFullSwipe: allowsFullSwipe,
+          content: content,
+          onPresentationChanged: onPresentationChanged
+        )
+    } else {
+      contentView
+    }
+  }
+  
+  @ViewBuilder public func swipeActionsContainer() -> some View {
+    if #available(iOS 27.0, macOS 27.0, *) {
+      contentView
+        .swipeActionsContainer()
+    } else {
+      contentView
+    }
+  }
+  
+  @ViewBuilder public func textInputBorderShape(
+    _ shape: SwiftUIAdapterTextInputBorderShape
+  ) -> some View {
+    if #available(iOS 27.0, macOS 27.0, *) {
+      contentView
+        .textInputBorderShape(shape.value)
+    } else {
+      contentView
+    }
+  }
+  
+#if os(iOS)
+  @ViewBuilder public func documentLaunchSubtitle(
+    _ subtitle: Text
+  ) -> some View {
+    if #available(iOS 27.0, *) {
+      contentView
+        .documentLaunchSubtitle(subtitle)
+    } else {
+      contentView
+    }
+  }
+  
+  @ViewBuilder public func documentLaunchTitle(
+    _ title: Text
+  ) -> some View {
+    if #available(iOS 27.0, *) {
+      contentView
+        .documentLaunchTitle(title)
+    } else {
+      contentView
+    }
+  }
+  
+  @ViewBuilder public func toolbarOverflowMenu<Content>(
+    @ViewBuilder content: () -> Content
+  ) -> some View where Content : View {
+    if #available(iOS 27.0, *) {
+      contentView
+        .toolbarOverflowMenu(content: content)
+    } else {
+      contentView
+    }
+  }
+#endif
+}

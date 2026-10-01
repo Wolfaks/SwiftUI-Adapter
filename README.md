@@ -24,7 +24,7 @@ YourView()
 Agree, the new code is much more elegant and easier to read.<br>
 Now imagine how great it would be if you didn't have to add a bunch of these checks throughout the project. This is where our package will help you.
 
-Plus, this will not affect the performance of your application in any way, since all operating system version checks in **SwiftUI-Adapter** are performed at the compilation stage.
+Plus, this will not affect the performance of your application in any way: each modifier performs a single lightweight `#available` check at runtime and returns the untouched view on older systems.
 
 # List of available modifiers for iOS
 
@@ -96,6 +96,20 @@ Plus, this will not affect the performance of your application in any way, since
 |.symbolColorRenderingMode(_:)|Sets the color rendering mode for symbol images.|26|
 |.symbolVariableValueMode(_:)|Sets the variable value mode mode for symbol images within this view.|26|
 |.tabBarMinimizeBehavior(_:)|Sets the behavior for tab bar minimization.|26|
+|.asyncImageURLSession(_:)|A modifier that adds a URL session for asynchronous images contained in the view to use when fetching image data.|27|
+|.defaultTabBarPlacement(_:)|Specifies the preferred placement for the tabs of a tab view in the tab bar style on platforms where the tab bar cannot adapt between different representations, and only one representation can be shown.|27|
+|.documentLaunchSubtitle(_:)|Sets the subtitle displayed beneath the title on the document launch card.|27|
+|.documentLaunchTitle(_:)|Sets the title displayed on the document launch card.|27|
+|.dragContainerSelection(_:containerNamespace:)|Provides multiple item selection support for drag containers.|27|
+|.draggable(containerItemID:containerNamespace:)|Inside a drag container, activates this view as the source of a drag and drop operation. Supports lazy drag containers.|27|
+|.ignoresSafeArea(_:edges:alignment:)|Expands the safe area of a view aligning content within the new bounds using the provided alignment.|27|
+|.onLongPressGesture(minimumDuration:maximumDistance:inputKinds:perform:onPressingChanged:)|Adds an action to perform when this view recognizes a long press gesture.|27|
+|.presentationPlacement(_:)|Sets the placement of a presentation within the presenting view.|27|
+|.recordingEditor(_:)|Presents the recording editor for the given recording URL.|27|
+|.swipeActions(edge:allowsFullSwipe:content:onPresentationChanged:)|Adds custom swipe actions to a row in a list or container, notifying you when the actions are revealed or dismissed.|27|
+|.swipeActionsContainer()|Coordinates swipe action dismissal and mutual exclusion across rows in a container.|27|
+|.textInputBorderShape(_:)|Sets the border shape for text input controls in the view hierarchy.|27|
+|.toolbarOverflowMenu(content:)|Configures the overflow menu of a toolbar.|27|
 
 # List of available modifiers for macOS
 
@@ -113,7 +127,7 @@ Plus, this will not affect the performance of your application in any way, since
 |.safeAreaInset<V>(edge:alignment:spacing:content:)|Shows the specified content above or below the modified view.|12|
 |.searchable(text:placement:prompt:)|Marks this view as searchable, which configures the display of a search field.|12|
 |.swipeActions<T>(edge:allowsFullSwipe:content:)|Adds custom swipe actions to a row in a list.|12|
-.task(priority:_)|Adds an asynchronous task to perform before this view appears.|12|
+|.task(priority:_)|Adds an asynchronous task to perform before this view appears.|12|
 |.backgroundStyle<S>(_:)|Sets the specified style to render backgrounds within the view.|13|
 |.contentTransition(_:)|Modifies the view to use a given transition as its method of animating changes to the contents of its views.|13|
 |.fontWidth(_:)|Sets the font width of the text in this view.|13|
@@ -150,6 +164,8 @@ Plus, this will not affect the performance of your application in any way, since
 |.backgroundExtensionEffect()|This modifier will clip the view to prevent copies from overlapping with each other.|26|
 |.buttonSizing(_:)|The preferred sizing behavior of buttons in the view hierarchy.|26|
 |.containerCornerOffset(_:)|Adjusts the view's layout to avoid the container view's corner insets for the specified edges.|26|
+|.dragContainerSelection(_:containerNamespace:)|Provides multiple item selection support for drag containers.|26|
+|.draggable(containerItemID:containerNamespace:)|Inside a drag container, activates this view as the source of a drag and drop operation. Supports lazy drag containers.|26|
 |.glassButtonStyle()|Applies a glass effect to this button.|26|
 |.glassEffect(_:)|Applies a glass effect to this view.|26|
 |.glassEffectContainer(spacing:)|A view that combines multiple glass shapes into a single shape that can morph individual shapes into one another.|26|
@@ -165,13 +181,25 @@ Plus, this will not affect the performance of your application in any way, since
 |.symbolColorRenderingMode(_:)|Sets the color rendering mode for symbol images.|26|
 |.symbolVariableValueMode(_:)|Sets the variable value mode mode for symbol images within this view.|26|
 |.tabBarMinimizeBehavior(_:)|Sets the behavior for tab bar minimization.|26|
+|.asyncImageURLSession(_:)|A modifier that adds a URL session for asynchronous images contained in the view to use when fetching image data.|27|
+|.defaultTabBarPlacement(_:)|Specifies the preferred placement for the tabs of a tab view in the tab bar style on platforms where the tab bar cannot adapt between different representations, and only one representation can be shown.|27|
+|.ignoresSafeArea(_:edges:alignment:)|Expands the safe area of a view aligning content within the new bounds using the provided alignment.|27|
+|.onLongPressGesture(minimumDuration:maximumDistance:inputKinds:perform:onPressingChanged:)|Adds an action to perform when this view recognizes a long press gesture.|27|
+|.presentationPlacement(_:)|Sets the placement of a presentation within the presenting view.|27|
+|.recordingEditor(_:)|Presents the recording editor for the given recording URL.|27|
+|.swipeActions(edge:allowsFullSwipe:content:onPresentationChanged:)|Adds custom swipe actions to a row in a list or container, notifying you when the actions are revealed or dismissed.|27|
+|.swipeActionsContainer()|Coordinates swipe action dismissal and mutual exclusion across rows in a container.|27|
+|.textInputBorderShape(_:)|Sets the border shape for text input controls in the view hierarchy.|27|
 
 # Installation
 
 **Swift Package Manager**
 \
 \
-**Minimum requirements:** iOS 14 or macOS 11.
+**Minimum deployment target:** iOS 14 or macOS 11 — your app can keep supporting these versions, and the modifiers for newer systems simply do nothing on them.
+\
+\
+**Build requirement:** Xcode 27 or newer. The package references iOS 27 / macOS 27 SwiftUI APIs, so it can only be compiled with the iOS 27 SDK, even though your deployment target can stay on iOS 14 / macOS 11.
 \
 \
 The [Swift Package Manager]([https://skillbox.ru/media/](https://www.swift.org/documentation/package-manager/)) is a tool for automating the distribution of Swift code and is integrated into the swift compiler.
